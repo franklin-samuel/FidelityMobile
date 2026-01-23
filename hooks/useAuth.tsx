@@ -66,7 +66,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     // Proteção de rotas automática
     React.useEffect(() => {
-        const inAuthGroup = segments[0] === '(auth)';
+        const inAuthGroup = segments[0] === 'auth';
 
         if (!isAuthenticated && !isLoading && !inAuthGroup) {
             router.replace('/login');

@@ -16,7 +16,6 @@ const MetricCardRoot: React.FC<MetricCardRootProps> = ({ children, variant = 'de
 
 interface MetricCardHeaderProps {
     icon: React.ReactNode;
-    iconColor?: string;
     title: string;
 }
 
@@ -70,13 +69,14 @@ const styles = StyleSheet.create({
         fontSize: 14,
         fontWeight: '500',
         color: '#71717a',
+        flex: 1,
     },
     icon: {
         width: 20,
         height: 20,
     },
     value: {
-        fontSize: 36,
+        fontSize: 32,
         fontWeight: 'bold',
         color: '#18181b',
     },
