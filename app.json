@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "fidelity-mobile",
-    "slug": "fidelity-mobile",
+    "name": "NaGaragem",
+    "slug": "nagaragem",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -10,7 +10,7 @@
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#222222"
     },
     "ios": {
       "supportsTablet": true
