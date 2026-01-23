@@ -4,7 +4,7 @@ import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useDashboardMetrics } from '../../../hooks/useDashboard';
 import { useSettings } from '../../../hooks/useSettings';
-import { Loading } from '../../../components/Loading';
+import { DashboardSkeleton } from '../../../components/Loading';
 import { MetricCard } from '../../../components/MetricCard';
 import { Card } from '../../../components/Card';
 
@@ -13,8 +13,14 @@ export default function DashboardPage() {
     const { data: metrics, isLoading: metricsLoading } = useDashboardMetrics();
     const { data: settings, isLoading: settingsLoading } = useSettings();
 
-    if (metricsLoading || settingsLoading) {
-        return <Loading fullScreen text="Carregando dashboard..." />;
+    const isLoading = metricsLoading || settingsLoading;
+
+    if (isLoading) {
+        return (
+            <ScrollView style={styles.container}>
+                <DashboardSkeleton />
+            </ScrollView>
+        );
     }
 
     const haircutsForFree = settings?.haircuts_for_free || 10;

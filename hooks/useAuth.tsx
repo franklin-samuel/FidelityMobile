@@ -1,5 +1,6 @@
-import React, { createContext, useContext, useState, useCallback } from 'react';
+import React, { createContext, useContext, useState, useCallback, useEffect } from 'react';
 import { useRouter, useSegments } from 'expo-router';
+import * as SplashScreen from 'expo-splash-screen';
 import { authService } from '../services/auth.service';
 import type { LoginRequest } from '../types/auth';
 import type { User } from '../types/user';
@@ -20,6 +21,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const segments = useSegments();
     const [user, setUser] = useState<User | null>(null);
     const [isLoading, setIsLoading] = useState(false);
+    const [isInitializing, setIsInitializing] = useState(true);
 
     const fetchUser = useCallback(async () => {
         if (!authService.isAuthenticated()) {
@@ -64,16 +66,33 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     const isAuthenticated = authService.isAuthenticated();
 
-    // Proteção de rotas automática
-    React.useEffect(() => {
+    useEffect(() => {
+        const initAuth = async () => {
+            if (authService.isAuthenticated()) {
+                await fetchUser();
+            }
+            setIsInitializing(false);
+            await SplashScreen.hideAsync();
+        };
+
+        initAuth();
+    }, [fetchUser]);
+
+    useEffect(() => {
+        if (isInitializing) return;
+
         const inAuthGroup = segments[0] === 'auth';
 
-        if (!isAuthenticated && !isLoading && !inAuthGroup) {
+        if (!isAuthenticated && !inAuthGroup) {
             router.replace('/login');
         } else if (isAuthenticated && inAuthGroup) {
             router.replace('/(tabs)');
         }
-    }, [isAuthenticated, isLoading, segments]);
+    }, [isAuthenticated, isInitializing, segments]);
+
+    if (isInitializing) {
+        return null;
+    }
 
     return (
         <AuthContext.Provider

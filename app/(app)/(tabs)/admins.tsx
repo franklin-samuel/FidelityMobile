@@ -3,7 +3,7 @@ import { View, Text, ScrollView, StyleSheet, TouchableOpacity } from 'react-nati
 import { Ionicons } from '@expo/vector-icons';
 import { useUsers, useCreateUser } from '../../../hooks/useUser';
 import { useAuth } from '../../../hooks/useAuth';
-import { Loading } from '../../../components/Loading';
+import { AdminCardSkeleton } from '../../../components/Loading';
 import { AdminCard } from '../../../components/AdminCard';
 import { Input } from '../../../components/Input';
 import { Button } from '../../../components/Button';
@@ -38,10 +38,6 @@ export default function AdminsPage() {
         });
     };
 
-    if (isLoading) {
-        return <Loading fullScreen text="Carregando administradores..." />;
-    }
-
     const admins = users || [];
 
     return (
@@ -50,7 +46,13 @@ export default function AdminsPage() {
                 style={styles.scrollView}
                 contentContainerStyle={styles.content}
             >
-                {admins.length === 0 ? (
+                {isLoading ? (
+                    <View style={styles.adminsList}>
+                        {[1, 2, 3].map((i) => (
+                            <AdminCardSkeleton key={i} />
+                        ))}
+                    </View>
+                ) : admins.length === 0 ? (
                     <View style={styles.emptyState}>
                         <View style={styles.emptyIcon}>
                             <Ionicons name="shield-checkmark" size={48} color="#a1a1aa" />

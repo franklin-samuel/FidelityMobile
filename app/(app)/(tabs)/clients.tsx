@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useCustomers, useSearchCustomers, useCreateCustomer } from '../../../hooks/useCustomer';
 import { useRegisterHaircut } from '../../../hooks/useHaircut';
 import { useSettings } from '../../../hooks/useSettings';
-import { Loading, CardSkeleton } from '../../../components/Loading';
+import { CustomerCardSkeleton } from '../../../components/Loading';
 import { CustomerCard } from '../../../components/CustomerCard';
 import { Input } from '../../../components/Input';
 import { Button } from '../../../components/Button';
@@ -71,10 +71,6 @@ export default function ClientsPage() {
         });
     };
 
-    if (customersLoading) {
-        return <Loading fullScreen text="Carregando clientes..." />;
-    }
-
     const showSearchLoader = isSearching || searchLoading;
     const hasCustomers = customers && customers.length > 0;
 
@@ -118,8 +114,14 @@ export default function ClientsPage() {
                     )}
                 </View>
 
-                {/* Customers List */}
-                {!hasCustomers ? (
+                {/* Customers List or Skeleton */}
+                {customersLoading ? (
+                    <View style={styles.customersList}>
+                        {[1, 2, 3, 4].map((i) => (
+                            <CustomerCardSkeleton key={i} />
+                        ))}
+                    </View>
+                ) : !hasCustomers ? (
                     <View style={styles.emptyState}>
                         <View style={styles.emptyIcon}>
                             <Ionicons name="people" size={48} color="#a1a1aa" />

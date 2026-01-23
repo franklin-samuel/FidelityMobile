@@ -13,6 +13,7 @@ import { useReactNavigationDevTools } from '@dev-plugins/react-navigation'
 import { useReactQueryDevTools } from '@dev-plugins/react-query'
 import { AuthProvider, useAuth } from '../hooks/useAuth';
 import { ToastProvider } from '../providers/ToastProvider';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import {useColorScheme} from "react-native";
 import {queryClient} from "../QueryClient";
 
@@ -21,8 +22,7 @@ export {
     ErrorBoundary,
 } from 'expo-router'
 
-
-SplashScreen.preventAutoHideAsync()
+SplashScreen.preventAutoHideAsync();
 
 function RootLayout() {
 
@@ -42,7 +42,7 @@ function RootLayout() {
 
     useEffect(() => {
         if (loaded) {
-            SplashScreen.hideAsync()
+            // Apenas sinaliza que as fontes foram carregadas
         }
     }, [loaded])
 
@@ -63,15 +63,17 @@ function RootLayoutNav() {
     const colorScheme = useColorScheme()
 
     return (
-        <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-            <QueryProvider>
-                <ToastProvider>
-                    <AuthProvider>
-                        <Slot />
-                    </AuthProvider>
-                </ToastProvider>
-            </QueryProvider>
-        </ThemeProvider>
+        <SafeAreaProvider>
+            <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+                <QueryProvider>
+                    <ToastProvider>
+                        <AuthProvider>
+                            <Slot />
+                        </AuthProvider>
+                    </ToastProvider>
+                </QueryProvider>
+            </ThemeProvider>
+        </SafeAreaProvider>
     )
 
 }

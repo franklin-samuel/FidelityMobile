@@ -21,7 +21,7 @@ export default function LoginPage() {
                 password
             });
         } catch (error) {
-            console.error('Login failed:', error);
+
         }
     };
 

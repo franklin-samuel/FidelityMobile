@@ -53,8 +53,6 @@ class HttpClient {
             return access_token;
         } catch (error) {
             tokenManager.clearTokens();
-            // No React Native, você pode usar um evento ou callback para redirecionar ao login
-            // Por enquanto, apenas limpamos os tokens
             return null;
         }
     }
@@ -113,9 +111,11 @@ class HttpClient {
                     toastCallback(errorMessage, 'error');
                 }
 
-                const error = new Error(errorMessage);
-                (error as any).isHandled = true;
-                throw error;
+                return Promise.reject({
+                    message: errorMessage,
+                    status: response.status,
+                    data: data,
+                });
             }
 
             if (!skipToast && data.message && toastCallback && restConfig.method !== 'GET') {
@@ -124,10 +124,18 @@ class HttpClient {
 
             return data;
         } catch (error) {
-            if (!skipToast && toastCallback && error instanceof Error && !(error as any).isHandled) {
+            if (error && typeof error === 'object' && 'message' in error && 'status' in error) {
+                return Promise.reject(error);
+            }
+
+            if (!skipToast && toastCallback) {
                 toastCallback('Erro de conexão. Tente novamente.', 'error');
             }
-            throw error;
+
+            return Promise.reject({
+                message: 'Erro de conexão. Tente novamente.',
+                status: 0,
+            });
         }
     }
 

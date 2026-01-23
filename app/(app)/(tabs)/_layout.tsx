@@ -1,9 +1,12 @@
 import { Tabs } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { UserProfile } from '../../../components/UserProfile';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Platform } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function TabLayout() {
+    const insets = useSafeAreaInsets();
+
     return (
         <Tabs
             screenOptions={{
@@ -13,8 +16,8 @@ export default function TabLayout() {
                     backgroundColor: '#fff',
                     borderTopWidth: 1,
                     borderTopColor: '#e4e4e7',
-                    height: 60,
-                    paddingBottom: 8,
+                    height: 60 + insets.bottom,
+                    paddingBottom: insets.bottom + 8,
                     paddingTop: 8,
                 },
                 tabBarLabelStyle: {
@@ -31,6 +34,22 @@ export default function TabLayout() {
                     fontWeight: '700',
                     color: '#18181b',
                 },
+                headerShadowVisible: false,
+                headerTitle: () => (
+                    <View style={styles.headerTitle}>
+                        <View style={styles.logo}>
+                            <Ionicons name="cut" size={20} color="#fff" />
+                        </View>
+                        <Text style={styles.logoText}>
+                            Na<Text style={styles.logoAccent}>Garagem</Text>
+                        </Text>
+                    </View>
+                ),
+                headerRight: () => (
+                    <View style={styles.headerRight}>
+                        <UserProfile />
+                    </View>
+                ),
             }}
         >
             <Tabs.Screen
@@ -39,11 +58,6 @@ export default function TabLayout() {
                     title: 'Clientes',
                     tabBarIcon: ({ color, size }) => (
                         <Ionicons name="people" size={size} color={color} />
-                    ),
-                    headerRight: () => (
-                        <View style={styles.headerRight}>
-                            <UserProfile />
-                        </View>
                     ),
                 }}
             />
@@ -54,21 +68,6 @@ export default function TabLayout() {
                     tabBarIcon: ({ color, size }) => (
                         <Ionicons name="grid" size={size} color={color} />
                     ),
-                    headerTitle: () => (
-                        <View style={styles.headerTitle}>
-                            <View style={styles.logo}>
-                                <Ionicons name="cut" size={20} color="#fff" />
-                            </View>
-                            <Text style={styles.logoText}>
-                                Na<Text style={styles.logoAccent}>Garagem</Text>
-                            </Text>
-                        </View>
-                    ),
-                    headerRight: () => (
-                        <View style={styles.headerRight}>
-                            <UserProfile />
-                        </View>
-                    ),
                 }}
             />
             <Tabs.Screen
@@ -77,11 +76,6 @@ export default function TabLayout() {
                     title: 'Admins',
                     tabBarIcon: ({ color, size }) => (
                         <Ionicons name="shield-checkmark" size={size} color={color} />
-                    ),
-                    headerRight: () => (
-                        <View style={styles.headerRight}>
-                            <UserProfile />
-                        </View>
                     ),
                 }}
             />
