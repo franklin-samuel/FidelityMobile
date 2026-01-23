@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, ScrollView, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { Scissors } from "lucide-react-native";
 import { Ionicons } from '@expo/vector-icons';
 import { useCustomers, useSearchCustomers, useCreateCustomer } from '../../../hooks/useCustomer';
 import { useRegisterHaircut } from '../../../hooks/useHaircut';
@@ -173,7 +174,7 @@ export default function ClientsPage() {
                                             isLoading={registering && selectedCustomer?.id === customer.id}
                                         >
                                             <Button.Icon>
-                                                <Ionicons name="cut" size={20} color="#fff" />
+                                                <Scissors size={20} color="#fff" />
                                             </Button.Icon>
                                             <Button.Text variant={isFreeReady ? 'success' : 'primary'}>
                                                 {isFreeReady ? 'Registrar Grátis' : 'Registrar Corte'}

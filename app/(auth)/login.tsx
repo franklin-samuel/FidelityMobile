@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { Scissors, LogIn, Eye, EyeOff } from "lucide-react-native";
 import { useAuth } from '../../hooks/useAuth';
 import { Input } from '../../components/Input';
 import { Button } from '../../components/Button';
@@ -38,7 +39,7 @@ export default function LoginPage() {
                 <View style={styles.logoContainer}>
                     <View style={styles.logoWrapper}>
                         <View style={styles.logo}>
-                            <Ionicons name="cut" size={40} color="#fff" />
+                            <Scissors size={40} color="#fff" />
                         </View>
                         <View style={styles.logoBadge} />
                     </View>
@@ -110,7 +111,7 @@ export default function LoginPage() {
                             disabled={isLoading || !email || !password}
                         >
                             <Button.Icon>
-                                <Ionicons name="log-in" size={20} color="#fff" />
+                                <LogIn size={20} color="#fff" />
                             </Button.Icon>
                             <Button.Text>
                                 {isLoading ? 'Entrando...' : 'Entrar'}

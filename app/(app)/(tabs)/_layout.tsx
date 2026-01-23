@@ -1,7 +1,7 @@
 import { Tabs } from 'expo-router';
-import { Ionicons } from '@expo/vector-icons';
+import { House, Users, UserLock, Scissors } from 'lucide-react-native'
 import { UserProfile } from '../../../components/UserProfile';
-import { View, Text, StyleSheet, Platform } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function TabLayout() {
@@ -38,7 +38,7 @@ export default function TabLayout() {
                 headerTitle: () => (
                     <View style={styles.headerTitle}>
                         <View style={styles.logo}>
-                            <Ionicons name="cut" size={20} color="#fff" />
+                            <Scissors size={20} color="#fff" />
                         </View>
                         <Text style={styles.logoText}>
                             Na<Text style={styles.logoAccent}>Garagem</Text>
@@ -57,7 +57,7 @@ export default function TabLayout() {
                 options={{
                     title: 'Clientes',
                     tabBarIcon: ({ color, size }) => (
-                        <Ionicons name="people" size={size} color={color} />
+                        <Users size={size} color={color} />
                     ),
                 }}
             />
@@ -66,7 +66,7 @@ export default function TabLayout() {
                 options={{
                     title: 'Dashboard',
                     tabBarIcon: ({ color, size }) => (
-                        <Ionicons name="grid" size={size} color={color} />
+                        <House size={size} color={color} />
                     ),
                 }}
             />
@@ -75,7 +75,7 @@ export default function TabLayout() {
                 options={{
                     title: 'Admins',
                     tabBarIcon: ({ color, size }) => (
-                        <Ionicons name="shield-checkmark" size={size} color={color} />
+                        <UserLock size={size} color={color} />
                     ),
                 }}
             />

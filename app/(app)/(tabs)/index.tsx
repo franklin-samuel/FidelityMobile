@@ -1,7 +1,8 @@
 import React from 'react';
 import { View, Text, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
-import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
+import { Users, Scissors, Gift, LucideMoveRight } from 'lucide-react-native';
+import { useRouter } from 'expo-router';
 import { useDashboardMetrics } from '../../../hooks/useDashboard';
 import { useSettings } from '../../../hooks/useSettings';
 import { DashboardSkeleton } from '../../../components/Loading';
@@ -35,7 +36,7 @@ export default function DashboardPage() {
                             <MetricCard.Header
                                 title="Total de Clientes"
                                 icon={
-                                    <Ionicons name="people" size={20} color="#71717a" />
+                                    <Users size={20} color="#71717a" />
                                 }
                             />
                             <MetricCard.Value>
@@ -49,7 +50,7 @@ export default function DashboardPage() {
                             <MetricCard.Header
                                 title="Cortes Realizados"
                                 icon={
-                                    <Ionicons name="cut" size={20} color="#71717a" />
+                                    <Scissors size={20} color="#71717a" />
                                 }
                             />
                             <MetricCard.Value>
@@ -65,7 +66,7 @@ export default function DashboardPage() {
                             <MetricCard.Header
                                 title="Cortes Grátis Dados"
                                 icon={
-                                    <Ionicons name="gift" size={20} color="#71717a" />
+                                    <Gift size={20} color="#71717a" />
                                 }
                             />
                             <MetricCard.Value>
@@ -95,7 +96,7 @@ export default function DashboardPage() {
                 <Card.Body>
                     <View style={styles.loyaltyContent}>
                         <View style={styles.loyaltyIcon}>
-                            <Ionicons name="gift" size={24} color="#f59e0b" />
+                            <Gift size={24} color="#f59e0b" />
                         </View>
 
                         <View style={styles.loyaltyInfo}>
@@ -114,7 +115,7 @@ export default function DashboardPage() {
                                 <Text style={styles.settingsButtonText}>
                                     Alterar Configuração
                                 </Text>
-                                <Ionicons name="arrow-forward" size={16} color="#18181b" />
+                                <LucideMoveRight size={16} color="#18181b" />
                             </TouchableOpacity>
                         </View>
                     </View>
