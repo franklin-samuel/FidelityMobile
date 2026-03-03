@@ -4,6 +4,7 @@ import type {
     CreateCustomerRequest,
     UpdateCustomerRequest,
 } from '../types/customer';
+import type { LoyaltyStatus } from '../types/loyalty';
 
 export const customerService = {
     list: async (): Promise<Customer[]> => {
@@ -25,6 +26,14 @@ export const customerService = {
 
     update: async (id: string, data: UpdateCustomerRequest): Promise<Customer> => {
         const response = await httpClient.patch<Customer>(`/customer/${id}`, data);
+        return response.data!;
+    },
+
+    getLoyaltyStatus: async (customerId: string, serviceId?: string): Promise<LoyaltyStatus> => {
+        const params = serviceId ? `?serviceId=${serviceId}` : '';
+        const response = await httpClient.get<LoyaltyStatus>(
+            `/customer/${customerId}/loyalty-status${params}`
+        );
         return response.data!;
     },
 };

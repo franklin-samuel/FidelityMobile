@@ -3,7 +3,7 @@ import type { DashboardMetrics } from '../types/dashboard';
 
 export const dashboardService = {
     getMetrics: async (): Promise<DashboardMetrics> => {
-        const response = await httpClient.get<DashboardMetrics>('/dashboard/metrics');
+        const response = await httpClient.get<DashboardMetrics>('/dashboard');
         return response.data!;
     },
 };
