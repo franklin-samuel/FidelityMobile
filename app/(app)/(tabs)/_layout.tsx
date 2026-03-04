@@ -1,11 +1,13 @@
 import { Tabs } from 'expo-router';
-import { House, Users, UserLock, Scissors } from 'lucide-react-native'
+import { House, ShoppingCart, Users, Menu } from 'lucide-react-native';
 import { UserProfile } from '../../../components/UserProfile';
 import { View, Text, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { usePermissions } from '../../../hooks/usePermissions';
 
 export default function TabLayout() {
     const insets = useSafeAreaInsets();
+    const { isAdmin } = usePermissions();
 
     return (
         <Tabs
@@ -38,7 +40,7 @@ export default function TabLayout() {
                 headerTitle: () => (
                     <View style={styles.headerTitle}>
                         <View style={styles.logo}>
-                            <Scissors size={20} color="#fff" />
+                            <Text style={styles.logoIcon}>✂️</Text>
                         </View>
                         <Text style={styles.logoText}>
                             Na<Text style={styles.logoAccent}>Garagem</Text>
@@ -53,15 +55,6 @@ export default function TabLayout() {
             }}
         >
             <Tabs.Screen
-                name="clients"
-                options={{
-                    title: 'Clientes',
-                    tabBarIcon: ({ color, size }) => (
-                        <Users size={size} color={color} />
-                    ),
-                }}
-            />
-            <Tabs.Screen
                 name="index"
                 options={{
                     title: 'Dashboard',
@@ -70,13 +63,67 @@ export default function TabLayout() {
                     ),
                 }}
             />
+
+            <Tabs.Screen
+                name="sales"
+                options={{
+                    title: 'Vendas',
+                    tabBarIcon: ({ color, size }) => (
+                        <ShoppingCart size={size} color={color} />
+                    ),
+                }}
+            />
+
+            <Tabs.Screen
+                name="clients"
+                options={{
+                    title: 'Clientes',
+                    tabBarIcon: ({ color, size }) => (
+                        <Users size={size} color={color} />
+                    ),
+                }}
+            />
+
+            {isAdmin && (
+                <Tabs.Screen
+                    name="more"
+                    options={{
+                        title: 'Mais',
+                        tabBarIcon: ({ color, size }) => (
+                            <Menu size={size} color={color} />
+                        ),
+                    }}
+                />
+            )}
+
+            <Tabs.Screen
+                name="appointments"
+                options={{
+                    href: null,
+                }}
+            />
+            <Tabs.Screen
+                name="analytics"
+                options={{
+                    href: null,
+                }}
+            />
+            <Tabs.Screen
+                name="catalog"
+                options={{
+                    href: null,
+                }}
+            />
+            <Tabs.Screen
+                name="barbers"
+                options={{
+                    href: null,
+                }}
+            />
             <Tabs.Screen
                 name="admins"
                 options={{
-                    title: 'Admins',
-                    tabBarIcon: ({ color, size }) => (
-                        <UserLock size={size} color={color} />
-                    ),
+                    href: null,
                 }}
             />
         </Tabs>
@@ -99,6 +146,9 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    logoIcon: {
+        fontSize: 18,
     },
     logoText: {
         fontSize: 20,
