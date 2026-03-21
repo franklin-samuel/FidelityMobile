@@ -4,8 +4,7 @@ import type { Product, CreateProductRequest, UpdateProductRequest } from '../typ
 export const productService = {
     list: async (): Promise<Product[]> => {
         const response = await httpClient.get<Product[]>('/product');
-        return response.data || [];
-    },
+        return Array.isArray(response.data) ? response.data : [];    },
 
     create: async (data: CreateProductRequest): Promise<Product> => {
         const response = await httpClient.post<Product>('/product', data);

@@ -9,15 +9,13 @@ import type { LoyaltyStatus } from '../types/loyalty';
 export const customerService = {
     list: async (): Promise<Customer[]> => {
         const response = await httpClient.get<Customer[]>('/customer');
-        return response.data || [];
-    },
+        return Array.isArray(response.data) ? response.data : [];    },
 
     search: async (query: string): Promise<Customer[]> => {
         const response = await httpClient.get<Customer[]>(
             `/customer/search?q=${encodeURIComponent(query)}`
         );
-        return response.data || [];
-    },
+        return Array.isArray(response.data) ? response.data : [];    },
 
     create: async (data: CreateCustomerRequest): Promise<Customer> => {
         const response = await httpClient.post<Customer>('/customer', data);

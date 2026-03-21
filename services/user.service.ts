@@ -4,8 +4,7 @@ import type { User, CreateUserRequest, DeleteUserRequest } from '../types/user';
 export const userService = {
     list: async (): Promise<User[]> => {
         const response = await httpClient.get<User[]>('/user');
-        return response.data || [];
-    },
+        return Array.isArray(response.data) ? response.data : [];    },
 
     create: async (data: CreateUserRequest): Promise<User> => {
         const response = await httpClient.post<User>('/user', data);

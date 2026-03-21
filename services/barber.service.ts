@@ -4,8 +4,7 @@ import type { Barber, CreateBarberRequest, DeleteBarberRequest } from '../types/
 export const barberService = {
     list: async (): Promise<Barber[]> => {
         const response = await httpClient.get<Barber[]>('/barber');
-        return response.data || [];
-    },
+        return Array.isArray(response.data) ? response.data : [];    },
 
     create: async (data: CreateBarberRequest): Promise<Barber> => {
         const response = await httpClient.post<Barber>('/barber', data);

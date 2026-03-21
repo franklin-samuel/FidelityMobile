@@ -4,8 +4,7 @@ import type { Service, CreateServiceRequest, UpdateServiceRequest } from '../typ
 export const serviceService = {
     list: async (): Promise<Service[]> => {
         const response = await httpClient.get<Service[]>('/service');
-        return response.data || [];
-    },
+        return Array.isArray(response.data) ? response.data : [];    },
 
     create: async (data: CreateServiceRequest): Promise<Service> => {
         const response = await httpClient.post<Service>('/service', data);
